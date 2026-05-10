@@ -9,7 +9,7 @@ intents.message_content = True
 
 bot = commands.Bot(command_prefix='$', intents=intents)
 
-# Lista de consejos (se elegiran al azar)
+# Lista de consejos
 consejos_eco = [
     "Ahorro de energia: Apaga luces y aparatos electricos cuando no los uses, cambia a bombillas LED y aprovecha la luz natural siempre que sea posible.",
     "Adios al plastico: Opta por bolsas reutilizables, botellas de acero inoxidable y envases de vidrio en lugar de plasticos de un solo uso.",
@@ -23,8 +23,15 @@ consejos_eco = [
     "Educacion: Habla con tu familia y amigos sobre la importancia de cuidar el planeta, y participa en actividades comunitarias que fomenten la conciencia ecologica."
 ]
 
+@bot.event
+async def on_ready():
+    print(f'Hemos iniciado sesión como {bot.user}')
+
+@bot.command()
+async def hola(ctx):
+    await ctx.send(f"¡Hola! Soy un bot ambientalista. Mi misión es ayudarte a cuidar el planeta. Puedes usar el comando `$consejo` para recibir un tip ecológico al azar.")
+
 @bot.command()
 async def consejo(ctx):
-    # Esta linea elige uno de la lista de forma aleatoria
     frase_aleatoria = random.choice(consejos_eco)
-    await ctx.send(f"Tip Ecologico: {frase_aleatoria}")
+    await ctx.send(f" **Tip Ecológico:** {frase_aleatoria}")
